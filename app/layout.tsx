@@ -93,12 +93,6 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" href={siteIconSrc} />
         <meta name="theme-color" content="#000000" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <script
-          src="https://quge5.com/88/tag.min.js"
-          data-zone="269510"
-          async
-          data-cfasync="false"
-        />
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <SiteIconProvider iconSrc={siteIconSrc}>
