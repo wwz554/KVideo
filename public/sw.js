@@ -1,10 +1,3 @@
-self.options = {
-    "domain": "5gvci.com",
-    "zoneId": 11560378
-};
-self.lary = "";
-importScripts('https://5gvci.com/act/files/service-worker.min.js?r=sw');
-
 const LEGACY_CACHE_PREFIXES = ['video-cache-'];
 
 self.addEventListener('install', () => {
