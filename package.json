@@ -8,7 +8,7 @@
     "start": "node scripts/next-with-lan-access.mjs start",
     "lint": "eslint",
     "test": "tsx --test tests/**/*.test.ts",
-    "pages:build": "npm install --legacy-peer-deps --no-audit --no-fund && npx @cloudflare/next-on-pages@1 && node scripts/transpile-client-assets.mjs .vercel/output/static/_next/static"
+    "pages:build": "next-on-pages && node scripts/transpile-client-assets.mjs .vercel/output/static/_next/static"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -18,21 +18,21 @@
     "@vercel/analytics": "^2.0.1",
     "hls.js": "^1.6.15",
     "lucide-react": "^0.577.0",
-    "next": "14.2.30",
+    "next": "16.2.12",
     "opencc-js": "^1.0.5",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "1.13.16",
+    "@cloudflare/next-on-pages": "^1.13.16",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^25",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "esbuild": "^0.27.7",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "14.2.30",
+    "eslint": "^9.25.1",
+    "eslint-config-next": "16.2.12",
     "postcss": "^8.5.8",
     "postcss-preset-env": "^11.2.0",
     "tailwindcss": "^4",
