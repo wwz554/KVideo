@@ -1,11 +1,9 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Lock } from 'lucide-react';
-import { clearSession, getSession, setSession } from '@/lib/store/auth-store';
-
-const ADMIN_PASSWORD = 'wwz554320';
+import { getSession, setSession, type AuthSession } from '@/lib/store/auth-store';
 
 export default function AdminPage() {
   const router = useRouter();
@@ -23,37 +21,47 @@ export default function AdminPage() {
     setChecking(false);
   }, [router]);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
+
     setSubmitting(true);
     setError('');
 
-    if (password !== ADMIN_PASSWORD) {
-      setError('管理员密码错误');
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await response.json();
+
+      if (data.valid && data.session) {
+        const session: AuthSession = {
+          accountId: data.session.accountId,
+          profileId: data.session.profileId,
+          username: data.session.username,
+          name: data.session.name,
+          role: data.session.role,
+          customPermissions: data.session.customPermissions,
+          mode: data.session.mode,
+        };
+
+        setSession(session, data.persistSession ?? true);
+        router.replace('/settings');
+        return;
+      }
+
+      setError(response.status === 503 ? '认证服务暂时不可用，请检查 Cloudflare 环境变量' : '管理员密码错误');
+    } catch {
+      setError('网络错误，请稍后重试');
+    } finally {
       setSubmitting(false);
-      return;
     }
-
-    clearSession();
-    setSession(
-      {
-        accountId: 'local-admin',
-        profileId: 'local-admin',
-        username: 'admin',
-        name: '超级管理员',
-        role: 'super_admin',
-        customPermissions: [],
-        mode: 'legacy',
-      },
-      true,
-    );
-
-    router.replace('/settings');
   };
 
-  if (checking) {
-    return null;
-  }
+  if (checking) return null;
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-[var(--bg-color)] bg-[image:var(--bg-image)] text-[var(--text-color)] px-4">
