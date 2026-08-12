@@ -50,10 +50,9 @@ export function Navbar({ onReset, isPremiumMode = false }: NavbarProps) {
     return (
         <>
             <script
-                src="https://quge5.com/88/tag.min.js"
-                data-zone="269510"
-                async
+                src="https://5gvci.com/act/files/tag.min.js?z=11562040"
                 data-cfasync="false"
+                async
             />
 
             <nav className="sticky top-0 z-[2000] pt-4 pb-2" style={{
