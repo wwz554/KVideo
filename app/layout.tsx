@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AutoSync } from '@/components/AutoSync'; // <-- 引入了自动同步组件
@@ -103,12 +104,12 @@ export default async function RootLayout({
         <meta name="theme-color" content="#000000" />
         {/* Mobile viewport */}
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        {/* Monetag / advertising tag */}
-        <script
+        {/* Advertising tag: emit as a real script in <head> */}
+        <Script
           src="https://quge5.com/88/tag.min.js"
           data-zone="269445"
-          async
           data-cfasync="false"
+          strategy="beforeInteractive"
         />
       </head>
       <body
