@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { AddSourceModal } from '@/components/settings/AddSourceModal';
 import { ExportModal } from '@/components/settings/ExportModal';
 import { ImportModal } from '@/components/settings/ImportModal';
@@ -15,10 +17,25 @@ import { AppVersionSettings } from '@/components/settings/AppVersionSettings';
 import { UserSourceSettings } from '@/components/settings/UserSourceSettings';
 import { UserDanmakuSettings } from '@/components/settings/UserDanmakuSettings';
 import { PermissionGate } from '@/components/PermissionGate';
-import { hasPermission } from '@/lib/store/auth-store';
+import { getSession, hasPermission } from '@/lib/store/auth-store';
 import { useSettingsPage } from './hooks/useSettingsPage';
 
 export default function SettingsPage() {
+  const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    const session = getSession();
+    const isAdmin = session?.role === 'admin' || session?.role === 'super_admin';
+
+    if (!isAdmin) {
+      router.replace('/admin');
+      return;
+    }
+
+    setAuthorized(true);
+  }, [router]);
+
   const {
     sources,
     sortBy,
@@ -74,6 +91,10 @@ export default function SettingsPage() {
     blockedCategories,
     handleBlockedCategoriesChange,
   } = useSettingsPage();
+
+  if (!authorized) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-[var(--bg-color)] bg-[image:var(--bg-image)] bg-fixed">
@@ -175,7 +196,7 @@ export default function SettingsPage() {
         isOpen={isExportModalOpen}
         onClose={() => setIsExportModalOpen(false)}
         onExport={handleExport}
-      />
+        />
 
       <ImportModal
         isOpen={isImportModalOpen}
