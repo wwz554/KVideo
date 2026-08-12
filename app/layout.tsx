@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
@@ -114,11 +114,13 @@ export default async function RootLayout({
 
               <TVProvider>
                 <TVNavigationInitializer />
-                <AutoSync />
-                <AdKeywordsWrapper />
-                {children}
-                <BackToTop />
-                <ScrollPositionManager />
+                <Suspense fallback={null}>
+                  <AutoSync />
+                  <AdKeywordsWrapper />
+                  {children}
+                  <BackToTop />
+                  <ScrollPositionManager />
+                </Suspense>
               </TVProvider>
               {vercelAnalyticsEnabled ? <Analytics /> : null}
               <ServiceWorkerRegister />
