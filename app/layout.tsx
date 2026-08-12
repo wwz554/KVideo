@@ -8,7 +8,6 @@ import { TVProvider } from "@/lib/contexts/TVContext";
 import { TVNavigationInitializer } from "@/components/TVNavigationInitializer";
 import { Analytics } from "@vercel/analytics/react";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
-import { AdminSettingsButton } from "@/components/AdminSettingsButton";
 import { siteConfig } from "@/lib/config/site-config";
 import { AdKeywordsInjector } from "@/components/AdKeywordsInjector";
 import { BackToTop } from "@/components/ui/BackToTop";
@@ -124,7 +123,6 @@ export default async function RootLayout({
               </TVProvider>
               {vercelAnalyticsEnabled ? <Analytics /> : null}
               <ServiceWorkerRegister />
-              <AdminSettingsButton />
             </RuntimeFeaturesProvider>
           </ThemeProvider>
         </SiteIconProvider>
