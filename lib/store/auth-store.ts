@@ -98,7 +98,7 @@ export function clearSession(): void {
 
 export function isAdmin(): boolean {
   const session = getSession();
-  if (!session) return true;
+  if (!session) return false;
   return session.role === 'admin' || session.role === 'super_admin';
 }
 
