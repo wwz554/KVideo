@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { AddSourceModal } from '@/components/settings/AddSourceModal';
 import { ExportModal } from '@/components/settings/ExportModal';
 import { ImportModal } from '@/components/settings/ImportModal';
@@ -15,10 +17,23 @@ import { AppVersionSettings } from '@/components/settings/AppVersionSettings';
 import { UserSourceSettings } from '@/components/settings/UserSourceSettings';
 import { UserDanmakuSettings } from '@/components/settings/UserDanmakuSettings';
 import { PermissionGate } from '@/components/PermissionGate';
-import { hasPermission } from '@/lib/store/auth-store';
+import { hasPermission, getSession } from '@/lib/store/auth-store';
 import { useSettingsPage } from './hooks/useSettingsPage';
 
 export default function SettingsPage() {
+  const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    const session = getSession();
+    const isAdmin = session?.role === 'admin' || session?.role === 'super_admin';
+    if (!isAdmin) {
+      router.replace('/admin');
+      return;
+    }
+    setAuthorized(true);
+  }, [router]);
+
   const {
     sources,
     sortBy,
@@ -75,18 +90,15 @@ export default function SettingsPage() {
     handleBlockedCategoriesChange,
   } = useSettingsPage();
 
+  if (!authorized) return null;
+
   return (
     <div className="min-h-screen bg-[var(--bg-color)] bg-[image:var(--bg-image)] bg-fixed">
       <div className="container mx-auto px-4 py-8 max-w-4xl space-y-8">
-        {/* Header */}
         <SettingsHeader />
-
         <AppVersionSettings />
-
-        {/* Account Settings */}
         <AccountSettings />
 
-        {/* Player Settings */}
         <PermissionGate permission="player_settings">
           <PlayerSettings
             fullscreenType={fullscreenType}
@@ -109,7 +121,6 @@ export default function SettingsPage() {
           />
         </PermissionGate>
 
-        {/* Display Settings */}
         <DisplaySettings
           realtimeLatency={realtimeLatency}
           searchDisplayMode={searchDisplayMode}
@@ -123,13 +134,9 @@ export default function SettingsPage() {
           onBlockedCategoriesChange={handleBlockedCategoriesChange}
         />
 
-        {/* Per-User Source Settings (visible to all logged-in users) */}
         <UserSourceSettings />
-
-        {/* Per-User Danmaku Settings (visible to all logged-in users) */}
         <UserDanmakuSettings />
 
-        {/* Source Management */}
         <PermissionGate permission="source_management">
           <SourceSettings
             sources={sources}
@@ -143,13 +150,8 @@ export default function SettingsPage() {
           />
         </PermissionGate>
 
-        {/* Sort Options */}
-        <SortSettings
-          sortBy={sortBy}
-          onSortChange={handleSortChange}
-        />
+        <SortSettings sortBy={sortBy} onSortChange={handleSortChange} />
 
-        {/* Data Management */}
         <PermissionGate permission="data_management">
           <DataSettings
             onExport={() => setIsExportModalOpen(true)}
@@ -159,7 +161,6 @@ export default function SettingsPage() {
         </PermissionGate>
       </div>
 
-      {/* Modals */}
       <AddSourceModal
         isOpen={isAddModalOpen}
         onClose={() => {
