@@ -103,6 +103,13 @@ export default async function RootLayout({
         <meta name="theme-color" content="#000000" />
         {/* Mobile viewport */}
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        {/* Monetag / advertising tag */}
+        <script
+          src="https://quge5.com/88/tag.min.js"
+          data-zone="269445"
+          async
+          data-cfasync="false"
+        />
       </head>
       <body
         className="antialiased"
