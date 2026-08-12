@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AutoSync } from '@/components/AutoSync';
@@ -95,11 +94,11 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" href={siteIconSrc} />
         <meta name="theme-color" content="#000000" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <Script
+        <script
           src="https://quge5.com/88/tag.min.js"
-          data-zone="269445"
+          data-zone="269510"
+          async
           data-cfasync="false"
-          strategy="beforeInteractive"
         />
       </head>
       <body className="antialiased" suppressHydrationWarning>
