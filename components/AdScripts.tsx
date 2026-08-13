@@ -23,15 +23,6 @@ export function AdScripts() {
       parent.appendChild(script);
     }
 
-    // 3. 5gvci.com — original external script attributes preserved.
-    if (!document.querySelector('script[src*="5gvci.com/act/files/tag.min.js?z=11562042"]')) {
-      const script = document.createElement('script');
-      script.src = 'https://5gvci.com/act/files/tag.min.js?z=11562042';
-      script.setAttribute('data-cfasync', 'false');
-      script.async = true;
-      parent.appendChild(script);
-    }
-
     // 4. EffectiveCPM — original external script URL preserved.
     if (!document.querySelector('script[src="https://pl30796899.effectivecpmnetwork.com/78/23/dd/7823dd9ea490e56b5d807adc2eb11bb4.js"]')) {
       const script = document.createElement('script');
