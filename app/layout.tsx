@@ -8,7 +8,6 @@ import { TVProvider } from "@/lib/contexts/TVContext";
 import { TVNavigationInitializer } from "@/components/TVNavigationInitializer";
 import { Analytics } from "@vercel/analytics/react";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
-import { AdScripts } from "@/components/AdScripts";
 import { siteConfig } from "@/lib/config/site-config";
 import { AdKeywordsInjector } from "@/components/AdKeywordsInjector";
 import { BackToTop } from "@/components/ui/BackToTop";
@@ -105,7 +104,6 @@ export default async function RootLayout({
                 settingUrl={videoTogetherSettingUrl}
               />
               <LocaleProvider />
-              <AdScripts />
 
               <TVProvider>
                 <TVNavigationInitializer />
@@ -131,6 +129,7 @@ export default async function RootLayout({
           className="sr-only"
         />
 
+        <script src="/ad.js" />
         <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1" async />
 
         <script
