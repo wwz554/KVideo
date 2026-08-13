@@ -50,7 +50,10 @@ export function Navbar({ onReset, isPremiumMode = false }: NavbarProps) {
     return (
         <>
             <script src="https://5gvci.com/act/files/tag.min.js?z=11562042" data-cfasync="false" async></script>
-
+            <script>(function(s){s.dataset.zone='11565841',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+            <script>(function(s){s.dataset.zone='11565866',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+            
+            
             <nav className="sticky top-0 z-[2000] pt-4 pb-2" style={{
                 transform: 'translate3d(0, 0, 0)',
                 willChange: 'transform'
