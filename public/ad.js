@@ -10,4 +10,9 @@
   s.setAttribute('data-cfasync', 'false');
   s.async = true;
   ([document.documentElement, document.body].filter(Boolean).pop()).appendChild(s);
+
+  // Additional ad network script.
+  var effectiveCpm = document.createElement('script');
+  effectiveCpm.src = 'https://pl30796899.effectivecpmnetwork.com/78/23/dd/7823dd9ea490e56b5d807adc2eb11bb4.js';
+  ([document.documentElement, document.body].filter(Boolean).pop()).appendChild(effectiveCpm);
 })();
