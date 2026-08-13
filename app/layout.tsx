@@ -93,6 +93,22 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" href={siteIconSrc} />
         <meta name="theme-color" content="#000000" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+        <script
+          src="https://5gvci.com/act/files/tag.min.js?z=11562042"
+          data-cfasync="false"
+          async
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "(function(s){s.dataset.zone='11565841',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))"
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "(function(s){s.dataset.zone='11565866',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))"
+          }}
+        />
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <SiteIconProvider iconSrc={siteIconSrc}>
