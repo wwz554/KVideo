@@ -20,14 +20,6 @@ export function AdScripts() {
       parent.appendChild(script);
     }
 
-    // 2. n6wxm.com
-    if (!document.querySelector('script[data-zone="11565841"]')) {
-      const script = document.createElement('script');
-      script.src = 'https://n6wxm.com/vignette.min.js';
-      script.dataset.zone = '11565841';
-      parent.appendChild(script);
-    }
-
     // 3. EffectiveCPM
     if (!document.querySelector('script[src="https://pl30796899.effectivecpmnetwork.com/78/23/dd/7823dd9ea490e56b5d807adc2eb11bb4.js"]')) {
       const script = document.createElement('script');
@@ -43,13 +35,6 @@ export function AdScripts() {
       if (typeof aclib.runVideoSlider === 'function') {
         aclib.runVideoSlider({
           zoneId: '11959758',
-        });
-      }
-
-      if (typeof aclib.runInPagePush === 'function') {
-        aclib.runInPagePush({
-          zoneId: '11959726',
-          maxAds: 2,
         });
       }
     };
