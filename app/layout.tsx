@@ -94,14 +94,6 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" href={siteIconSrc} />
         <meta name="theme-color" content="#000000" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
-        <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" />
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: "aclib.runAutoTag({zoneId: 'wnllwn4uty'});",
-          }}
-        />
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <SiteIconProvider iconSrc={siteIconSrc}>
