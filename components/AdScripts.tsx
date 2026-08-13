@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 
 type AdcashGlobal = {
-  runAutoTag?: (options: { zoneId: string }) => void;
+  runVideoSlider?: (options: { zoneId: string }) => void;
+  runInPagePush?: (options: { zoneId: string; maxAds: number }) => void;
 };
 
 export function AdScripts() {
@@ -34,12 +35,21 @@ export function AdScripts() {
       parent.appendChild(script);
     }
 
-    // 4. Adcash: load aclib.js first, then run the advertiser-supplied call.
-    const runAdcashAutoTag = () => {
+    // 4. Adcash: load aclib.js first, then run the advertiser-supplied VideoSlider and InPagePush calls.
+    const runAdcashAds = () => {
       const aclib = (window as Window & { aclib?: AdcashGlobal }).aclib;
-      if (aclib?.runAutoTag) {
-        aclib.runAutoTag({
-          zoneId: 'wnllwn4uty',
+      if (!aclib) return;
+
+      if (typeof aclib.runVideoSlider === 'function') {
+        aclib.runVideoSlider({
+          zoneId: '11959758',
+        });
+      }
+
+      if (typeof aclib.runInPagePush === 'function') {
+        aclib.runInPagePush({
+          zoneId: '11959726',
+          maxAds: 2,
         });
       }
     };
@@ -49,17 +59,17 @@ export function AdScripts() {
     );
 
     if (existingAdcash) {
-      if ((window as Window & { aclib?: AdcashGlobal }).aclib?.runAutoTag) {
-        runAdcashAutoTag();
+      if ((window as Window & { aclib?: AdcashGlobal }).aclib) {
+        runAdcashAds();
       } else {
-        existingAdcash.addEventListener('load', runAdcashAutoTag, { once: true });
+        existingAdcash.addEventListener('load', runAdcashAds, { once: true });
       }
     } else {
       const script = document.createElement('script');
       script.id = 'aclib';
       script.type = 'text/javascript';
       script.src = 'https://acscdn.com/script/aclib.js';
-      script.addEventListener('load', runAdcashAutoTag, { once: true });
+      script.addEventListener('load', runAdcashAds, { once: true });
       parent.appendChild(script);
     }
   }, []);
