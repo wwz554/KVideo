@@ -95,7 +95,7 @@ export default async function RootLayout({
         <meta name="theme-color" content="#000000" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-        <script id="aclib" type="text/javascript" src="//acdn.com/script/aclib.js" />
+        <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js" />
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
