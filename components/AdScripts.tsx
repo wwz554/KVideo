@@ -2,11 +2,6 @@
 
 import { useEffect } from 'react';
 
-type AdcashGlobal = {
-  runVideoSlider?: (options: { zoneId: string }) => void;
-  runInPagePush?: (options: { zoneId: string; maxAds: number }) => void;
-};
-
 export function AdScripts() {
   useEffect(() => {
     const parent = document.body;
