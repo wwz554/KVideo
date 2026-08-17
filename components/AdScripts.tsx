@@ -26,37 +26,6 @@ export function AdScripts() {
       script.src = 'https://pl30796899.effectivecpmnetwork.com/78/23/dd/7823dd9ea490e56b5d807adc2eb11bb4.js';
       parent.appendChild(script);
     }
-
-    // 4. Adcash: load aclib.js first, then run the advertiser-supplied VideoSlider and InPagePush calls.
-    const runAdcashAds = () => {
-      const aclib = (window as Window & { aclib?: AdcashGlobal }).aclib;
-      if (!aclib) return;
-
-      if (typeof aclib.runVideoSlider === 'function') {
-        aclib.runVideoSlider({
-          zoneId: '11959758',
-        });
-      }
-    };
-
-    const existingAdcash = document.querySelector<HTMLScriptElement>(
-      'script[src*="acscdn.com/script/aclib.js"]'
-    );
-
-    if (existingAdcash) {
-      if ((window as Window & { aclib?: AdcashGlobal }).aclib) {
-        runAdcashAds();
-      } else {
-        existingAdcash.addEventListener('load', runAdcashAds, { once: true });
-      }
-    } else {
-      const script = document.createElement('script');
-      script.id = 'aclib';
-      script.type = 'text/javascript';
-      script.src = 'https://acscdn.com/script/aclib.js';
-      script.addEventListener('load', runAdcashAds, { once: true });
-      parent.appendChild(script);
-    }
   }, []);
 
   return null;
