@@ -15,6 +15,15 @@ export function AdScripts() {
       parent.appendChild(script);
     }
 
+    // 2. 5gvci.com
+    if (!document.querySelector('script[src="https://5gvci.com/act/files/tag.min.js?z=11562040"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://5gvci.com/act/files/tag.min.js?z=11562040';
+      script.async = true;
+      script.setAttribute('data-cfasync', 'false');
+      parent.appendChild(script);
+    }
+
     // 3. EffectiveCPM
     if (!document.querySelector('script[src="https://pl30796899.effectivecpmnetwork.com/78/23/dd/7823dd9ea490e56b5d807adc2eb11bb4.js"]')) {
       const script = document.createElement('script');
