@@ -87,7 +87,7 @@ export function Navbar({ onReset, isPremiumMode = false }: NavbarProps) {
                                 </div>
                             )}
 
-                            <a href="https://github.com/KuekHaoYang/KVideo" target="_blank" rel="noopener noreferrer" className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-[var(--radius-full)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-color)] hidden sm:flex" aria-label="GitHub 仓库">
+                            <a href="https://github.com/wwz554/KVideo" target="_blank" rel="noopener noreferrer" className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-[var(--radius-full)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-color)] hidden sm:flex" aria-label="GitHub 仓库">
                                 <Icons.Github size={20} />
                             </a>
 
