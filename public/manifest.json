@@ -9,8 +9,10 @@
     "orientation": "any",
     "icons": [
         {
-            "src": "/icon.png",
-            "purpose": "any maskable"
+            "src": "/pinhaoju-icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
         }
     ],
     "categories": [
