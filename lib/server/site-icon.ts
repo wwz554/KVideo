@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+// Keep the public site branding fixed. Deployment environment variables must not
+// be able to replace the 拼好剧 logo unexpectedly.
 export const DEFAULT_SITE_ICON_PATH = '/pinhaoju-icon.svg';
 const LEGACY_SITE_ICON_ROUTE = '/api/site-icon';
 
@@ -79,25 +81,7 @@ async function resolveIconFileAsDataUrl(iconFile: string): Promise<string | null
 }
 
 export async function resolveSiteIconSrc(): Promise<string> {
-  const resolvedRuntimeIcon = normalizeIconUrl(process.env.SITE_ICON_RESOLVED_URL);
-  if (resolvedRuntimeIcon) {
-    return resolvedRuntimeIcon;
-  }
-
-  const runtimeIconUrl = normalizeIconUrl(
-    process.env.SITE_ICON_URL?.trim() || process.env.NEXT_PUBLIC_SITE_ICON_URL?.trim(),
-  );
-  if (runtimeIconUrl) {
-    return runtimeIconUrl;
-  }
-
-  const iconFile = process.env.SITE_ICON_FILE?.trim();
-  if (iconFile) {
-    const dataUrl = await resolveIconFileAsDataUrl(iconFile);
-    if (dataUrl) {
-      return dataUrl;
-    }
-  }
-
+  // Site branding is intentionally fixed to 拼好剧. Do not allow SITE_ICON_*
+  // or NEXT_PUBLIC_SITE_ICON_URL environment variables to override it.
   return DEFAULT_SITE_ICON_PATH;
 }
