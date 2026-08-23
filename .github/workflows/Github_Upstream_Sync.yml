@@ -11,8 +11,6 @@ env:
   SYNC_BRANCH: upstream-sync-conflict # The branch name used if a conflict occurs
 
 on:
-  schedule:
-    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -45,7 +43,7 @@ jobs:
 
           # 3. Attempt Merge
           echo "Attempting to merge upstream/$UPSTREAM_BRANCH into $TARGET_BRANCH..."
-          
+
           if git merge upstream/$UPSTREAM_BRANCH; then
             echo "✅ Merge successful. Pushing changes..."
             git push origin $TARGET_BRANCH
