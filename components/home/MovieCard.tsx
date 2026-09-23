@@ -37,7 +37,7 @@ export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieC
         onMovieClick(movie);
       }}
       data-focusable
-      className="group cursor-pointer hover:translate-y-[-2px] transition-transform duration-200 ease-out"
+      className="group block cursor-pointer transition-transform duration-200 ease-out hover:-translate-y-1"
       style={{
         position: 'relative',
         zIndex: 1,
@@ -46,14 +46,14 @@ export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieC
       onMouseEnter={(e) => (e.currentTarget.style.zIndex = '100')}
       onMouseLeave={(e) => (e.currentTarget.style.zIndex = '1')}
     >
-      <Card hover={false} className="p-0 h-full shadow-[0_2px_8px_var(--shadow-color)] hover:shadow-[0_8px_24px_var(--shadow-color)] transition-shadow duration-200 ease-out" blur={false}>
-        <div className="relative aspect-[2/3] bg-[var(--glass-bg)] rounded-[var(--radius-2xl)]">
+      <Card hover={false} className="h-full p-1.5 sm:p-2 shadow-[0_2px_8px_var(--shadow-color)] hover:shadow-[0_10px_28px_var(--shadow-color)] transition-shadow duration-200 ease-out" blur={false}>
+        <div className="relative aspect-[2/3] bg-[var(--glass-bg)] rounded-[1.15rem] sm:rounded-[var(--radius-2xl)]">
           {!imageError ? (
             <Image
               src={movie.cover}
               alt={movie.title}
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-[var(--radius-2xl)]"
+              className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-[1.15rem] sm:rounded-[var(--radius-2xl)]"
               sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
               loading="eager"
               unoptimized
@@ -65,13 +65,13 @@ export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieC
               src="/placeholder-poster.svg"
               alt={movie.title}
               fill
-              className="object-cover rounded-[var(--radius-2xl)]"
+              className="object-cover rounded-[1.15rem] sm:rounded-[var(--radius-2xl)]"
               sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
               unoptimized
               onError={() => setFallbackError(true)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-[var(--glass-bg)] rounded-[var(--radius-2xl)]">
+            <div className="w-full h-full flex items-center justify-center bg-[var(--glass-bg)] rounded-[1.15rem] sm:rounded-[var(--radius-2xl)]">
               <p className="text-sm text-[var(--text-muted)]">暂无图片</p>
             </div>
           )}
@@ -92,8 +92,8 @@ export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieC
             </div>
           )}
         </div>
-        <div className="pt-3">
-          <h3 className="font-semibold text-sm text-center text-[var(--text-color)] line-clamp-2 group-hover:text-[var(--accent-color)] transition-colors">
+        <div className="px-1 pb-1 pt-2.5 sm:pt-3">
+          <h3 className="line-clamp-2 min-h-10 text-center text-xs font-semibold leading-5 text-[var(--text-color)] transition-colors group-hover:text-[var(--accent-color)] sm:text-sm">
             {movie.title}
           </h3>
         </div>
