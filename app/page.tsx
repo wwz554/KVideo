@@ -43,7 +43,7 @@ function HomePage() {
       <Navbar onReset={handleReset} />
 
       {/* Search Form - Separate from navbar */}
-      <div className="max-w-7xl mx-auto px-4 mt-6 mb-8 relative" style={{
+      <div className="relative mx-auto mb-6 mt-4 max-w-7xl px-3 sm:mb-8 sm:mt-6 sm:px-4" style={{
         transform: 'translate3d(0, 0, 0)',
         zIndex: 1000
       }}>
@@ -60,7 +60,7 @@ function HomePage() {
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <main className="mx-auto max-w-7xl px-3 pb-20 sm:px-5 lg:px-7 xl:px-8">
         {/* Results Section */}
         {(results.length >= 1 || (!loading && results.length > 0)) && (
           <SearchResults
