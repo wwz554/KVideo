@@ -48,24 +48,24 @@ export function Navbar({ onReset, isPremiumMode = false }: NavbarProps) {
     };
 
     return (
-        <nav className="sticky top-0 z-[2000] pt-4 pb-2" style={{
+        <nav className="sticky top-0 z-[2000] pb-2 pt-2 sm:pt-3" style={{
             transform: 'translate3d(0, 0, 0)',
             willChange: 'transform'
         }}>
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="bg-[var(--glass-bg)] border border-[var(--glass-border)] shadow-[var(--shadow-sm)] px-3 sm:px-6 py-2 sm:py-4 rounded-[var(--radius-2xl)]">
-                    <div className="flex items-center justify-between gap-2 sm:gap-4">
+            <div className="mx-auto max-w-7xl px-2.5 sm:px-4">
+                <div className="rounded-[1.25rem] border border-[var(--glass-border)] bg-[var(--glass-bg)] px-2.5 py-2.5 shadow-[var(--shadow-sm)] sm:rounded-[var(--radius-2xl)] sm:px-5 sm:py-3.5 md:px-6">
+                    <div className="flex items-center justify-between gap-1.5 sm:gap-4">
                         <Link href={isPremiumMode ? '/premium' : '/'} className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity cursor-pointer min-w-0" onClick={onReset} data-focusable>
                             <div className="w-8 h-8 sm:w-10 sm:h-10 relative flex items-center justify-center flex-shrink-0">
                                 <Image src={siteIconSrc} alt={siteConfig.name} width={40} height={40} unoptimized className="object-contain" />
                             </div>
                             <div className="flex flex-col min-w-0">
-                                <h1 className="text-lg sm:text-2xl font-bold text-[var(--text-color)] truncate">{siteConfig.name}</h1>
+                                <h1 className="truncate text-base font-bold text-[var(--text-color)] sm:text-xl md:text-2xl">{siteConfig.name}</h1>
                                 <p className="text-xs text-[var(--text-color-secondary)] hidden sm:block truncate">{siteConfig.description}</p>
                             </div>
                         </Link>
 
-                        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                        <div className="flex flex-shrink-0 items-center gap-1 sm:gap-2 md:gap-3">
                             {iptvEnabled && hasPermission('iptv_access') && (
                                 <Link href="/iptv" className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-[var(--radius-full)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-color)]" aria-label="直播" title="直播" data-focusable>
                                     <Icons.TV size={16} className="sm:w-5 sm:h-5" />
