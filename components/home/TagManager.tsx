@@ -46,39 +46,60 @@ export function TagManager({
   recommendTag,
 }: TagManagerProps) {
   return (
-    <>
-      {/* Management Controls */}
-      <div className="mb-6 flex items-center justify-between">
-        <button
-          onClick={onToggleManager}
-          className="text-sm text-[var(--text-color-secondary)] hover:text-[var(--accent-color)] transition-colors flex items-center gap-2 cursor-pointer"
-        >
-          <Icons.Tag size={16} />
-          {showTagManager ? '完成' : '管理标签'}
-        </button>
-        {showTagManager && (
+    <section className="mb-8 rounded-[var(--radius-2xl)] border border-[var(--glass-border)] bg-[var(--glass-bg)] p-3 shadow-[var(--shadow-sm)] sm:p-4 md:p-5">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-2.5">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--accent-color)]/10 text-[var(--accent-color)]">
+            <Icons.Tag size={18} />
+          </div>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h2 className="text-sm font-bold text-[var(--text-color)] sm:text-base">内容分类</h2>
+              <span className="rounded-full border border-[var(--glass-border)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-color-secondary)] sm:text-xs">
+                {tags.length + (recommendTag ? 1 : 0)}
+              </span>
+            </div>
+            <p className="mt-0.5 hidden text-xs text-[var(--text-color-secondary)] sm:block">
+              标签会根据屏幕宽度自动换行，点击即可切换内容
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {showTagManager && (
+            <button
+              onClick={onRestoreDefaults}
+              className="flex min-h-9 items-center gap-1.5 rounded-xl border border-[var(--glass-border)] px-3 text-xs font-medium text-[var(--text-color-secondary)] transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] sm:text-sm"
+            >
+              <Icons.RefreshCw size={14} />
+              恢复默认
+            </button>
+          )}
           <button
-            onClick={onRestoreDefaults}
-            className="text-sm text-[var(--text-color-secondary)] hover:text-[var(--accent-color)] transition-colors flex items-center gap-2 cursor-pointer"
+            onClick={onToggleManager}
+            className={`flex min-h-9 items-center gap-1.5 rounded-xl px-3 text-xs font-semibold transition-all sm:text-sm ${showTagManager
+              ? 'bg-[var(--accent-color)] text-white shadow-sm'
+              : 'border border-[var(--glass-border)] text-[var(--text-color-secondary)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]'
+            }`}
           >
-            <Icons.RefreshCw size={16} />
-            恢复默认
+            <Icons.Tag size={14} />
+            {showTagManager ? '完成' : '管理标签'}
           </button>
-        )}
+        </div>
       </div>
 
-      {/* Add Custom Tag */}
       {showTagManager && (
-        <TagInput
-          newTagInput={newTagInput}
-          onNewTagInputChange={onNewTagInputChange}
-          onAddTag={onAddTag}
-        />
+        <div className="mb-4">
+          <TagInput
+            newTagInput={newTagInput}
+            onNewTagInputChange={onNewTagInputChange}
+            onAddTag={onAddTag}
+          />
+        </div>
       )}
 
-      {/* Tag Filter */}
       {isLoadingTags ? (
-        <div className="flex items-center gap-2 py-4">
+        <div className="flex min-h-24 items-center justify-center gap-2">
           <Icons.RefreshCw size={16} className="animate-spin text-[var(--accent-color)]" />
           <span className="text-sm text-[var(--text-color-secondary)]">正在加载标签...</span>
         </div>
@@ -95,7 +116,6 @@ export function TagManager({
           recommendTag={recommendTag}
         />
       )}
-    </>
+    </section>
   );
 }
-

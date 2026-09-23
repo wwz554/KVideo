@@ -14,11 +14,10 @@ import {
 import {
     SortableContext,
     sortableKeyboardCoordinates,
-    horizontalListSortingStrategy,
     rectSortingStrategy,
 } from '@dnd-kit/sortable';
 import { SortableTag, Tag } from './SortableTag';
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Icons } from '@/components/ui/Icon';
 
 interface RecommendTagConfig {
@@ -50,7 +49,6 @@ export function TagList({
     onJustAddedTagHandled,
     recommendTag,
 }: TagListProps) {
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
     const [activeId, setActiveId] = useState<string | null>(null);
 
     const sensors = useSensors(
@@ -64,37 +62,11 @@ export function TagList({
         })
     );
 
-    // Auto-scroll to end when new tag is added
     useEffect(() => {
-        if (justAddedTag && scrollContainerRef.current) {
-            scrollContainerRef.current.scrollTo({
-                left: scrollContainerRef.current.scrollWidth,
-                behavior: 'smooth',
-            });
+        if (justAddedTag) {
             onJustAddedTagHandled();
         }
     }, [justAddedTag, onJustAddedTagHandled]);
-
-    // Handle horizontal scroll with mouse wheel
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        const handleWheel = (e: WheelEvent) => {
-            // Check if it's a vertical scroll (mostly deltaY) and negligible horizontal scroll
-            if (e.deltaY !== 0 && Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-                e.preventDefault();
-                container.scrollLeft += e.deltaY;
-            }
-        };
-
-        // Add passive: false to allow preventDefault
-        container.addEventListener('wheel', handleWheel, { passive: false });
-
-        return () => {
-            container.removeEventListener('wheel', handleWheel);
-        };
-    }, []);
 
     const handleDragStart = (event: DragStartEvent) => {
         setActiveId(event.active.id as string);
@@ -114,36 +86,31 @@ export function TagList({
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
         >
-            <div
-                ref={scrollContainerRef}
-                className={`mb-8 flex items-center gap-3 pb-3 pt-2 px-1 scrollbar-hide ${
-                    showTagManager
-                        ? 'flex-wrap overflow-visible'
-                        : 'overflow-x-auto'
-                }`}
-            >
-                {/* Recommendation Tag — non-draggable, rendered before sortable tags */}
+            <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4 sm:gap-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8">
                 {recommendTag && (
-                    <div className="relative flex-shrink-0">
+                    <div className="relative min-w-0">
                         <button
                             type="button"
                             onClick={recommendTag.onSelect}
                             className={`
-                                px-6 py-2.5 text-sm font-semibold transition-all whitespace-nowrap rounded-[var(--radius-full)] cursor-pointer select-none flex items-center gap-1.5
+                                flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl border px-2.5 py-2.5
+                                text-center text-xs font-semibold leading-tight transition-all duration-200
+                                sm:rounded-2xl sm:px-3 sm:text-sm
                                 ${recommendTag.isSelected
-                                    ? 'bg-[var(--accent-color)] text-white shadow-md scale-105'
-                                    : 'bg-[var(--glass-bg)] backdrop-blur-xl text-[var(--text-color)] border border-[var(--glass-border)] hover:border-[var(--accent-color)] hover:scale-105'
+                                    ? 'border-[var(--accent-color)] bg-[var(--accent-color)] text-white shadow-md ring-1 ring-[var(--accent-color)]'
+                                    : 'border-[var(--glass-border)] bg-[var(--glass-bg)] text-[var(--text-color)] shadow-[var(--shadow-sm)] hover:-translate-y-0.5 hover:border-[var(--accent-color)] hover:shadow-md'
                                 }
                             `}
                         >
-                            <Icons.Sparkles size={14} />
-                            {recommendTag.label}
+                            <Icons.Sparkles size={14} className="shrink-0" />
+                            <span className="min-w-0 break-words">{recommendTag.label}</span>
                         </button>
                     </div>
                 )}
+
                 <SortableContext
                     items={tags.map((t) => t.id)}
-                    strategy={showTagManager ? rectSortingStrategy : horizontalListSortingStrategy}
+                    strategy={rectSortingStrategy}
                 >
                     {tags.map((tag) => (
                         <SortableTag
@@ -160,10 +127,8 @@ export function TagList({
 
             <DragOverlay>
                 {activeId && activeTag ? (
-                    <div className="relative flex-shrink-0 animate-jiggle">
-                        <button className="px-6 py-2.5 text-sm font-semibold whitespace-nowrap rounded-[var(--radius-full)] bg-[var(--accent-color)] text-white shadow-xl scale-110 cursor-grabbing border border-transparent">
-                            {activeTag.label}
-                        </button>
+                    <div className="min-w-28 rounded-2xl border border-[var(--accent-color)] bg-[var(--accent-color)] px-4 py-3 text-center text-sm font-semibold text-white shadow-xl">
+                        {activeTag.label}
                     </div>
                 ) : null}
             </DragOverlay>

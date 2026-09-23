@@ -47,22 +47,24 @@ export function SortableTag({
             style={style}
             {...attributes}
             {...listeners}
-            className="relative flex-shrink-0"
+            className="relative min-w-0"
         >
-            <div className={`${showTagManager && !isDragging ? 'animate-jiggle' : ''}`}>
+            <div className={`relative h-full ${showTagManager && !isDragging ? 'animate-jiggle' : ''}`}>
                 <button
                     type="button"
                     onClick={() => onTagSelect(tag.id)}
                     className={`
-            px-6 py-2.5 text-sm font-semibold transition-all whitespace-nowrap rounded-[var(--radius-full)] cursor-pointer select-none
-            ${selectedTag === tag.id
-                            ? 'bg-[var(--accent-color)] text-white shadow-md scale-105'
-                            : 'bg-[var(--glass-bg)] backdrop-blur-xl text-[var(--text-color)] border border-[var(--glass-border)] hover:border-[var(--accent-color)] hover:scale-105'
+                        min-h-11 w-full rounded-xl border px-2.5 py-2.5 text-center text-xs font-semibold leading-tight
+                        transition-all duration-200 select-none sm:rounded-2xl sm:px-3 sm:text-sm
+                        ${selectedTag === tag.id
+                            ? 'border-[var(--accent-color)] bg-[var(--accent-color)] text-white shadow-md ring-1 ring-[var(--accent-color)]'
+                            : 'border-[var(--glass-border)] bg-[var(--glass-bg)] text-[var(--text-color)] shadow-[var(--shadow-sm)] hover:-translate-y-0.5 hover:border-[var(--accent-color)] hover:shadow-md'
                         }
-          `}
+                    `}
                 >
-                    {tag.label}
+                    <span className="block break-words">{tag.label}</span>
                 </button>
+
                 {showTagManager && (
                     <button
                         type="button"
@@ -70,9 +72,10 @@ export function SortableTag({
                             e.stopPropagation();
                             onTagDelete(tag.id);
                         }}
-                        className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors rounded-[var(--radius-full)] cursor-pointer z-20 shadow-sm"
+                        className="absolute -right-1.5 -top-1.5 z-20 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white shadow-md transition-transform hover:scale-110 hover:bg-red-600"
+                        aria-label={`删除标签 ${tag.label}`}
                     >
-                        <Icons.X size={14} />
+                        <Icons.X size={13} />
                     </button>
                 )}
             </div>
